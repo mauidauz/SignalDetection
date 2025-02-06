@@ -1,34 +1,51 @@
-# signal_detection.py
+import scipy.stats as stats
 
-def add_numbers(a, b):
-    """
-    Adds two numbers and returns the result.
-    """
-    return a + b
+class SignalDetection:
+    def __init__(self, hit_rate, false_alarm_rate):
+        """
+        Initialize SignalDetection with hit rate and false alarm rate.
 
-def subtract_numbers(a, b):
-    """
-    Subtracts the second number from the first and returns the result.
-    """
-    return a - b
+        Parameters:
+            hit_rate (float): Proportion of hits (true positives).
+            false_alarm_rate (float): Proportion of false alarms (false positives).
+        """
+        self.hit_rate = hit_rate
+        self.false_alarm_rate = false_alarm_rate
 
+    def d_prime(self):
+        """
+        Calculate d-prime, a measure of sensitivity in signal detection theory.
 
-# Basic test cases to verify functionality
-def run_tests():
-    print("Running Tests...")
+        Returns:
+            float: The d-prime value.
+        """
+        # Convert hit rate and false alarm rate to z-scores
+        z_hit = stats.norm.ppf(self.hit_rate)
+        z_false_alarm = stats.norm.ppf(self.false_alarm_rate)
 
-    # Test addition
-    assert add_numbers(5, 3) == 8, "Addition Test Failed"
-    
-    # Test subtraction
-    assert subtract_numbers(5, 3) == 2, "Subtraction Test Failed"
-    
-    # Test with negative numbers
-    assert add_numbers(-2, -4) == -6, "Negative Addition Test Failed"
-    assert subtract_numbers(-2, -4) == 2, "Negative Subtraction Test Failed"
-    
-    print("All tests passed!")
+        # Calculate d-prime
+        return z_hit - z_false_alarm
 
+    def criterion(self):
+        """
+        Calculate criterion (c), which measures the decision threshold in signal detection theory.
 
+        Returns:
+            float: The criterion value.
+        """
+        # Convert hit rate and false alarm rate to z-scores
+        z_hit = stats.norm.ppf(self.hit_rate)
+        z_false_alarm = stats.norm.ppf(self.false_alarm_rate)
+
+        # Calculate criterion
+        return -0.5 * (z_hit + z_false_alarm)
+
+# Example usage
 if __name__ == "__main__":
-    run_tests()
+    hit_rate = 0.85
+    false_alarm_rate = 0.15
+
+    sd = SignalDetection(hit_rate, false_alarm_rate)
+
+    print(f"d-prime: {sd.d_prime():.2f}")
+    print(f"criterion: {sd.criterion():.2f}")
