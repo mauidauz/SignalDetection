@@ -1,7 +1,7 @@
 import unittest
 import numpy as np
 import matplotlib.pyplot as plt
-from SignalDetection import SignalDetection
+from signaldetection import SignalDetection
 
 class TestSignalDetection(unittest.TestCase):
     def test_d_prime_zero(self):
