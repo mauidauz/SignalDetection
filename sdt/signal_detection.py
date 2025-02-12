@@ -3,8 +3,7 @@ import scipy.stats as stats
 class SignalDetection:
     def __init__(self, hits, misses, falseAlarms, correctRejections):
         """
-        Initialize SignalDetection with raw counts instead of rates.
-
+        I
         Parameters:
             hits (int): Number of hits (true positives).
             misses (int): Number of misses (false negatives).
