@@ -1,5 +1,5 @@
 import scipy.stats as stats
-
+#This code was assisted with the help of chatGPT
 class SignalDetection:
     def __init__(self, hits, misses, falseAlarms, correctRejections):
         """
@@ -68,5 +68,4 @@ if __name__ == "__main__":
 
     print(f"d-prime: {sd.d_prime():.2f}")
     print(f"criterion: {sd.criterion():.2f}")
-
 
